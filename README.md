@@ -11,7 +11,6 @@ It has been tested on Ansible 1.5 and above, and depends on the following roles:
   - Ansibles.apt
   - Ansibles.build-essential
   - Ansibles.perl
-  - Ansibles.monit (if you want monit protection)
 
 
 ##### Platforms
@@ -116,10 +115,6 @@ nginx_sites:
         name: /images/
         try_files: "$uri $uri/ /index.html"
 ```
-
-
-##### Monit ?
-You can put Nginx under monit monitoring protection, by setting `monit_protection: yes`
 
 
 ##### Modules
