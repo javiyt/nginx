@@ -8,6 +8,7 @@
     pkg: "{{item}}"
     state: present
   with_items:
+    - libperl-dev
     - libpcre3
     - libpcre3-dev
     - libssl-dev
