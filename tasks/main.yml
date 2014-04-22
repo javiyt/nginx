@@ -1,9 +1,31 @@
 # file: nginx/tasks/main.yml
 
-- include: package.yml
+- name: Nginx | Check whether package binary is already installed
+  command: test -f /usr/sbin/nginx
+  sudo: yes
+  ignore_errors: yes
+  register: nginx_package_bin_installed
   when: nginx_install_method == "package"
-- include: source.yml
+
+- include: package.yml
+  when: nginx_install_method == "package" and nginx_package_bin_installed|failed
+
+- include: package.yml
+  when: nginx_install_method == "package" and nginx_package_bin_installed|success and install_nginx is defined and install_nginx == "force"
+
+- name: Nginx | Check whether source binary is already installed
+  command: test -f /usr/local/nginx/default/sbin/nginx
+  sudo: yes
+  ignore_errors: yes
+  register: nginx_source_bin_installed
   when: nginx_install_method == "source"
+
+- include: source.yml
+  when: nginx_install_method == "source" and nginx_source_bin_installed|failed
+
+- include: source.yml
+  when: nginx_install_method == "source" and nginx_source_bin_installed|success and install_nginx is defined and install_nginx == "force"
+
 - include: scripts.yml
 - include: configure.yml
 - include: default_site.yml
