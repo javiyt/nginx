@@ -17,5 +17,7 @@ allow_duplicates: yes
 dependencies:
   - cloudify.hostname
   - Ansibles.apt
-  - Ansibles.build-essential
-  - Ansibles.perl
+  - role: Ansibles.build-essential
+    when: nginx_install_method is defined and nginx_install_method == "source"
+  - role: Ansibles.perl
+    when: nginx_install_method is defined and nginx_install_method == "source"
