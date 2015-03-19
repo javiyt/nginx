@@ -13,7 +13,7 @@
 
 - name: Nginx | Make sure nginx is installed (package)
   apt:
-    pkg: nginx
+    pkg: nginx={{nginx_package_version}}
     state: present
   notify:
     - restart nginx
